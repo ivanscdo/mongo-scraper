@@ -18,7 +18,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/hw0609");
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/hw0609";
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 app.get("/scrape", function (req, res) {
     axios.get("https://www.wholefoodsmarket.com/sales-flyer/domain")
